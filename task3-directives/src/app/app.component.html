@@ -5,9 +5,32 @@
         <li>Add A button which says 'Display Details'</li>
         <li>Add a paragraph with any content of your choice (e.g. 'Secret Password = tuna')</li>
         <li>Toggle the displaying of that paragraph with the button created in the first step</li>
-        <li>Log all button clicks in an array and output that array below the secret paragraph (maybe log a timestamp or simply an incrementing number)</li>
-        <li>Starting at the 5th log item, give all future log items a blue background (via ngStyle) and white color (ngClass)</li>
+        <li>Log all button clicks in an array and output that array below the secret paragraph (maybe log a timestamp or
+          simply an incrementing number)</li>
+        <li>Starting at the 5th background-color = log item, give all future log items a blue background (via ngStyle)
+          and white color
+          (ngClass)</li>
       </ol>
+      <hr>
+      <button class="btn btn-primary" (click)="onDisplayDetails()">Display Details</button>
+      <div class="alert-info text-info rounded spaced" *ngIf="isShownInfo">
+        <p>
+          The outcome bias is an error made in evaluating the quality of a decision when the outcome of that decision
+          is already known. Specifically, the outcome bias effect occurs when the same behavior produces more ethical
+          condemnation when it happens to produce bad rather than good outcome, even if the outcome is determined by
+          chance.
+        </p>
+        <p>
+          While similar to the hindsight bias, the two phenomena are markedly different. The hindsight bias focuses on
+          memory distortion to favor the actor, while the outcome bias focuses exclusively on weighting the past outcome
+          heavier than other pieces of information in deciding if a past decision was correct.
+        </p>
+      </div>
+      <div class="log spaced rounded" *ngIf="clickLog.length > 0">
+        <p class="unspaced" *ngFor="let entry of clickLog"
+          [ngStyle]="{backgroundColor: clickLog.indexOf(entry) >= 4 ? 'blue' : 'transparent'}"
+          [ngClass]="{'white-font': clickLog.indexOf(entry) >= 4}">{{ entry }}</p>
+      </div>
     </div>
   </div>
 </div>

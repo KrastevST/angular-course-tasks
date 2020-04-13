@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'task3-directives';
+  title = 'task3-directives'
+  isShownInfo = false
+  clickLog = []
+
+  onDisplayDetails() {
+    this.isShownInfo = !this.isShownInfo
+    const date = Date.now().toString()
+    this.clickLog.push(date + ' clicked!')
+  }
 }
