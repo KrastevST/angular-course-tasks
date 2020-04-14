@@ -27,7 +27,7 @@
         </p>
       </div>
       <div class="log spaced rounded" *ngIf="clickLog.length > 0">
-        <p class="unspaced" *ngFor="let entry of clickLog let i = index"
+        <p class="unspaced" *ngFor="let entry of clickLog; let i = index"
           [ngStyle]="{backgroundColor: i >= 4 ? 'blue' : 'transparent'}"
           [ngClass]="{'white-font': i >= 4}">{{ entry }}</p>
       </div>
