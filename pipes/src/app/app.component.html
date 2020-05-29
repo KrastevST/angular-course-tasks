@@ -8,7 +8,7 @@
           [ngClass]="getStatusClasses(server)">
           <strong>{{ server.name }}</strong> |
           {{ server.instanceType | uppercase }} |
-          {{ server.started | date }}
+          {{ server.started | date: 'fullDate' }}
           <span
             class="badge badge-secondary float-right">
             {{ server.status }}
