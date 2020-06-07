@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators'
 import { Subject, throwError } from 'rxjs';
 
@@ -24,28 +24,32 @@ export class PostsService {
   }
 
   fetchPosts() {
+    let searchParams = new HttpParams()
+    searchParams = searchParams.append('print', 'pretty')
+    searchParams = searchParams.append('custom', 'key')
     return this.http
-    .get<{ [key: string]: Post }>(
-      'https://ng-complete-guide-bb45e.firebaseio.com/posts.json',
-      {
-        headers: new HttpHeaders({"'Custom-Header': 'Hello"})
-      }
-    )
-    .pipe(
-      map((responseData: {[key: string]: Post}) => {
-        const postsArray: Post[] = []
-        for (const key in responseData) {
-          if (responseData.hasOwnProperty(key)) {
-            postsArray.push({...responseData[key], id: key})
-          }
+      .get<{ [key: string]: Post }>(
+        'https://ng-complete-guide-bb45e.firebaseio.com/posts.json',
+        {
+          headers: new HttpHeaders({'Custom-Header': 'Hello'}),
+          params: searchParams
         }
-        return postsArray
-      }),
-      catchError(errorRes => {
-        // Send to analytics server
-        return throwError(errorRes)
-      })
-    )
+      )
+      .pipe(
+        map((responseData: {[key: string]: Post}) => {
+          const postsArray: Post[] = []
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              postsArray.push({...responseData[key], id: key})
+            }
+          }
+          return postsArray
+        }),
+        catchError(errorRes => {
+          // Send to analytics server
+          return throwError(errorRes)
+        })
+      )
   }
 
   deletePosts() {
