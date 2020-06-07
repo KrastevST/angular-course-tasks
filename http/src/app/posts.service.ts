@@ -20,7 +20,7 @@ export class PostsService {
   }
 
   fetchPosts() {
-    this.http
+    return this.http
     .get<{ [key: string]: Post }>('https://ng-complete-guide-bb45e.firebaseio.com/posts.json')
     .pipe(
       map((responseData: {[key: string]: Post}) => {
@@ -33,7 +33,9 @@ export class PostsService {
         return postsArray
       })
     )
-    .subscribe(posts => {
-    })
+  }
+
+  deletePosts() {
+    return this.http.delete('https://ng-complete-guide-bb45e.firebaseio.com/posts.json')
   }
 }
