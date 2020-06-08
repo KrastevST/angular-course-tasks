@@ -35,11 +35,11 @@ export class PostsService {
         'https://ng-complete-guide-bb45e.firebaseio.com/posts.json',
         {
           headers: new HttpHeaders({'Custom-Header': 'Hello'}),
-          params: searchParams
+          params: searchParams,
         }
       )
       .pipe(
-        map((responseData: {[key: string]: Post}) => {
+        map(responseData => {
           const postsArray: Post[] = []
           for (const key in responseData) {
             if (responseData.hasOwnProperty(key)) {
@@ -56,19 +56,22 @@ export class PostsService {
   }
 
   deletePosts() {
-    return this.http.delete(
-      'https://ng-complete-guide-bb45e.firebaseio.com/posts.json',
-      {
-        observe: 'events'
-      }
-    ).pipe(tap(event => {
-      console.log(event);
-      if (event.type === HttpEventType.Sent) {
-        // ...
-      }
-      if (event.type === HttpEventType.Response) {
-        console.log(event.body);
-      }
-    }))
+    return this.http
+      .delete(
+        'https://ng-complete-guide-bb45e.firebaseio.com/posts.json',
+        {
+          observe: 'events',
+          responseType: 'text',
+      })
+      .pipe(tap(event => {
+        console.log(event);
+        if (event.type === HttpEventType.Sent) {
+          // ...
+        }
+        if (event.type === HttpEventType.Response) {
+          console.log(event.body);
+        }
+      })
+    )
   }
 }
